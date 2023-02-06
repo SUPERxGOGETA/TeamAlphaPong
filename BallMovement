@@ -1,0 +1,38 @@
+using System.Collections;
+using UnityEngine;
+
+public class Ball : MonoBehaviour
+{
+    public float speed = 10f;
+    private Rigidbody2D rigidBody2D;
+    private Vector2 direction;
+
+    private void Start()
+    {
+        rigidBody2D = GetComponent<Rigidbody2D>();
+        direction = Vector2.one.normalized;
+    }
+
+    private void Update()
+    {
+        rigidBody2D.velocity = direction * speed;
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.name == "Paddle1" || collision.gameObject.name == "Paddle2")
+        {
+            float y = hitFactor(transform.position, collision.transform.position, collision.collider.bounds.size.y);
+            direction = new Vector2(direction.x * -1, y).normalized;
+        }
+        else if (collision.gameObject.name == "WallLeft" || collision.gameObject.name == "WallRight")
+        {
+            // Add score logic here
+        }
+    }
+
+    private float hitFactor(Vector2 ballPos, Vector2 paddlePos, float paddleHeight)
+    {
+        return (ballPos.y - paddlePos.y) / paddleHeight;
+    }
+}
