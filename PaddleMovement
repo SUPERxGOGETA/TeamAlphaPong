@@ -1,0 +1,13 @@
+using System.Collections;
+using UnityEngine;
+
+public class Paddle : MonoBehaviour
+{
+    public float speed = 10f;
+
+    private void Update()
+    {
+        float verticalMovement = Input.GetAxis("Vertical");
+        transform.position += new Vector3(0, verticalMovement * speed * Time.deltaTime, 0);
+    }
+}
