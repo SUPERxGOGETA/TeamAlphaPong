@@ -36,3 +36,5 @@ public class Ball : MonoBehaviour
         return (ballPos.y - paddlePos.y) / paddleHeight;
     }
 }
+
+}
